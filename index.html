@@ -60,22 +60,67 @@
             <img src="tumblr.jpg">
           </div>
           <div class="card-content deep-orange height-adjust">
-            <p>At Sullivan and Cogliano Training Centers, we've Designed the Program for you and your Success.</p>
-            <p>Career Training In FLORIDA or ONLINE!</p>
-            <p>Classes start every 2 weeks. Flexible Scheduling. A School That Fits Your Needs.</p>
+            <p>At Sullivan and Cogliano Training Centers, we've Designed the Program for you and your Success.
+            <i>Career Training In FLORIDA or ONLINE!
+            Classes start every 2 weeks. Flexible Scheduling. A School That Fits Your Needs.</p>
 
         </div>
       </div>
 
 
+
     </div>
 
   </div>
+  <div class="row">
+    <form method="post" action="http://www.fvi-grad.com:4004/email" class="col s12">
+      <div class="input-field">
+        <input name="full_name" id="full_name" type="text" class="validate">
+        <label for="full_name">Full Name</label>
+      </div>
+      <div class="input-field">
+        <input name="email" id="email" type="text" class="validate">
+        <label for="email">Your E-mail</label>
+      </div>
+      <div class="input-field col s12">
+        <textarea id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">Textarea</label>
+      </div>
+      <input type="hidden" value="lizzareyes13@gmail.com" id="dest_email">
+      <span id="formSubmit" class="btn waves-effect waves-light" name="action">Submit
+        <i class="material-icons right">send</i>
+      </span>
+
+    </form>
 </div>
 <script   src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 <script>
  $(".button-collapse").sideNav();
+ $('select').material_select();
+ $("#formSubmit").on("click", function(e){
+
+   $("#formSubmit").html("please wait...");
+   $("#formSubmit").off("click");
+   $.ajax({
+     url:$("form").attr("action"),
+     method: "POST",
+     success: function(resp,txt,xhr){
+       console.log(resp);
+       $("#formSubmit").html(resp);
+       $("input, textArea").val("");
+     },
+     error: function(err){
+       alert(err);
+     },
+     data: {
+       full_name: $("#full_name").val(),
+       email: $("#email").val(),
+       message: $("#message").val(),
+       dest_email: $("#dest_email").val()
+     }
+   });
+ });
 </script>
 </body>
 </html>
